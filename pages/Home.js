@@ -4,7 +4,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import Swiper from 'react-native-swiper';
 
-export default function App() {
+export default function Home({ navigation }) {
+  const handleCategoryPress = (category) => {
+      navigation.navigate('Order');
+    };
      const menuItems = [
     {
       id: '1',
@@ -195,23 +198,26 @@ export default function App() {
         </View>
 
         {/* Category Cards */}
-          <View style={styles.categories}>
+         <View style={styles.categories}>
       {categories.map((category) => (
         <TouchableOpacity
           key={category.id}
           style={[styles.categoryCard, { backgroundColor: category.backgroundColor }]}
+          onPress={() => handleCategoryPress(category)}
         >
           <Text style={styles.categoryText}>{category.title}</Text>
           <Text style={styles.restaurantCount}>{category.restaurantCount}</Text>
         </TouchableOpacity>
-
       ))}
     </View>
       </ScrollView>
             
     </SafeAreaView>
+    
   );
+  
 }
+
 
 const styles = StyleSheet.create({
   container: {

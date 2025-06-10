@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity,ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const filters = ['Filter', 'Discount', 'Promo', 'Recommended','Filter', 'Discount', 'Promo', 'Recommended'];
+const filters = ['Filter', 'Discount', 'Promo', 'Recommended', 'Filter', 'Discount', 'Promo', 'Recommended'];
+
 const restaurants = [
   {
     id: '1',
@@ -78,8 +80,13 @@ const restaurants = [
 ];
 
 const NearMeSection = () => {
+  const navigation = useNavigation();
+
   const renderRestaurantCard = ({ item }) => (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate('Chat')}
+    >
       <Image
         source={{ uri: item.imageUri }}
         style={styles.cardImage}
@@ -108,26 +115,23 @@ const NearMeSection = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <Text style={styles.header}>Dishes near me</Text>
       <Text style={styles.subHeader}>Catch delicious eats near you</Text>
 
-      {/* Filter Buttons */}
       <View style={styles.filterContainer}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-        {filters.map((label, index) => (
-          <TouchableOpacity key={index} style={styles.filterButton}>
-            <Text style={styles.filterText}>{label}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
+          {filters.map((label, index) => (
+            <TouchableOpacity key={index} style={styles.filterButton}>
+              <Text style={styles.filterText}>{label}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
 
-      {/* Restaurant List */}
       <FlatList
         data={restaurants}
         renderItem={renderRestaurantCard}
@@ -141,7 +145,6 @@ const NearMeSection = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    // flex: 1,
     padding: 20,
     backgroundColor: '#fff',
   },
@@ -156,11 +159,8 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 15,
   },
-  filterRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  filterContainer: {
     marginBottom: 15,
-    
   },
   filterButton: {
     backgroundColor: '#f0f0f0',
@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 20,
     padding: 10,
+    marginRight: 10,
   },
   filterText: {
     fontSize: 14,
@@ -178,8 +179,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 15,
-    elevation: 3, // Shadow for Android
-    shadowColor: '#000', // Shadow for iOS
+    elevation: 3,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -235,6 +236,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 15,
     marginRight: 5,
+    marginTop: 5,
   },
 });
 

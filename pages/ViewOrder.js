@@ -4,10 +4,10 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-  FlatList,
   ScrollView,
   StyleSheet,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -32,7 +32,7 @@ const RestaurantDetails = () => {
   };
 
   // Menu categories
-  const categories = ['Popular', 'Main Courses', 'Appetizer', 'Pizza & Pas','Popular', 'Main Courses', 'Appetizer', 'Pizza & Pas'];
+  const categories = ['Popular', 'Main Courses', 'Appetizer', 'Pizza & Pas'];
 
   // Menu items under "Popular" category
   const menuItems = [
@@ -52,6 +52,20 @@ const RestaurantDetails = () => {
     },
     {
       id: '3',
+      name: 'Salmon with Beaurre',
+      price: 'Rp320,000',
+      imageUri: 'https://static.toiimg.com/thumb/imgsize-276736,msid-87282159/87282159.jpg?width=500&resizemode=4',
+      tags: [],
+    },
+    {
+      id: '4',
+      name: 'Salmon with Beaurre',
+      price: 'Rp320,000',
+      imageUri: 'https://static.toiimg.com/thumb/imgsize-276736,msid-87282159/87282159.jpg?width=500&resizemode=4',
+      tags: [],
+    },
+    {
+      id: '5',
       name: 'Salmon with Beaurre',
       price: 'Rp320,000',
       imageUri: 'https://static.toiimg.com/thumb/imgsize-276736,msid-87282159/87282159.jpg?width=500&resizemode=4',
@@ -89,118 +103,111 @@ const RestaurantDetails = () => {
   );
 
   return (
-    <View style={styles.container}>
-      {/* Header with Background Image */}
-      <ImageBackground
-        source={{ uri: 'https://static.toiimg.com/thumb/imgsize-276736,msid-87282159/87282159.jpg?width=500&resizemode=4' }}
-        style={styles.headerImage}
-      >
-        {/* Header Icons */}
-        <View style={styles.headerIcons}>
-          <TouchableOpacity>
-            <Ionicons name="arrow-back" size={24} color="#fff" />
-          </TouchableOpacity>
-          <View style={styles.rightIcons}>
-            <TouchableOpacity style={styles.iconButton}>
-              <Ionicons name="search" size={24} color="#fff" />
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Header with Background Image */}
+        <ImageBackground
+          source={{ uri: 'https://static.toiimg.com/thumb/imgsize-276736,msid-87282159/87282159.jpg?width=500&resizemode=4' }}
+          style={styles.headerImage}
+        >
+          <View style={styles.headerIcons}>
+            <TouchableOpacity>
+              <Ionicons name="arrow-back" size={24} color="#fff" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <Ionicons name="heart-outline" size={24} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
-
-      {/* Restaurant Info */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.restaurantName}>{restaurant.name}</Text>
-        <Text style={styles.description}>{restaurant.description}</Text>
-        <Text style={styles.location}>{restaurant.location}</Text>
-        <TouchableOpacity>
-          <Text style={styles.mapLink}>See on maps</Text>
-        </TouchableOpacity>
-
-        {/* Stats */}
-        <View style={styles.statsRow}>
-          <View style={styles.statItem}>
-            <Text style={styles.statValue}>{restaurant.rating}</Text>
-            <Text style={styles.statLabel}>{restaurant.reviews} Reviews</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statValue}>{restaurant.menuCount}</Text>
-            <Text style={styles.statLabel}>Menu variants</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statValue}>{restaurant.priceRange}</Text>
-            <Text style={styles.statLabel}>Price range</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statValue}>{restaurant.hours}</Text>
-            <Text style={styles.statLabel}>Opening hours</Text>
-          </View>
-        </View>
-
-        {/* Delivery Info */}
-        <View style={styles.deliveryInfo}>
-          <Text style={styles.deliveryText}>
-            {restaurant.distance} distance • Est. delivery fee {restaurant.deliveryFee} • Delivery in {restaurant.deliveryTime}
-          </Text>
-          <TouchableOpacity>
-            <Text style={styles.changeLocation}>Change location</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Discounts */}
-        <View style={styles.discountRow}>
-          {restaurant.discounts.map((discount, index) => (
-            <View key={index} style={styles.discountTag}>
-              <Ionicons name={discount.icon} size={16} color="#e91e63" />
-              <Text style={styles.discountText}>{discount.text}</Text>
+            <View style={styles.rightIcons}>
+              <TouchableOpacity style={styles.iconButton}>
+                <Ionicons name="search" size={24} color="#fff" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.iconButton}>
+                <Ionicons name="heart-outline" size={24} color="#fff" />
+              </TouchableOpacity>
             </View>
-          ))}
-        </View>
-      </View>
+          </View>
+        </ImageBackground>
 
-      {/* Category Tabs */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.categoryTabs}
-      >
-        {categories.map((category, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              styles.categoryTab,
-              category === 'Popular' && styles.activeCategoryTab,
-            ]}
-          >
-            <Text
+        {/* Restaurant Info */}
+        <View style={styles.infoContainer}>
+          <Text style={styles.restaurantName}>{restaurant.name}</Text>
+          <Text style={styles.description}>{restaurant.description}</Text>
+          <Text style={styles.location}>{restaurant.location}</Text>
+          <TouchableOpacity>
+            <Text style={styles.mapLink}>See on maps</Text>
+          </TouchableOpacity>
+
+          <View style={styles.statsRow}>
+            <View style={styles.statItem}>
+              <Text style={styles.statValue}>{restaurant.rating}</Text>
+              <Text style={styles.statLabel}>{restaurant.reviews} Reviews</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statValue}>{restaurant.menuCount}</Text>
+              <Text style={styles.statLabel}>Menu variants</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statValue}>{restaurant.priceRange}</Text>
+              <Text style={styles.statLabel}>Price range</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statValue}>{restaurant.hours}</Text>
+              <Text style={styles.statLabel}>Opening hours</Text>
+            </View>
+          </View>
+
+          <View style={styles.deliveryInfo}>
+            <Text style={styles.deliveryText}>
+              {restaurant.distance} distance • Est. delivery fee {restaurant.deliveryFee} • Delivery in {restaurant.deliveryTime}
+            </Text>
+            <TouchableOpacity>
+              <Text style={styles.changeLocation}>Change location</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.discountRow}>
+            {restaurant.discounts.map((discount, index) => (
+              <View key={index} style={styles.discountTag}>
+                <Ionicons name={discount.icon} size={16} color="#e91e63" />
+                <Text style={styles.discountText}>{discount.text}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Category Tabs */}
+        <View style={styles.categoryTabs}>
+          {categories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
               style={[
-                styles.categoryText,
-                category === 'Popular' && styles.activeCategoryText,
+                styles.categoryTab,
+                category === 'Popular' && styles.activeCategoryTab,
               ]}
             >
-              {category}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+              <Text
+                style={[
+                  styles.categoryText,
+                  category === 'Popular' && styles.activeCategoryText,
+                ]}
+              >
+                {category}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      {/* Menu Items */}
-      <FlatList
-        data={menuItems}
-        renderItem={renderMenuItem}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.menuList}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+        {/* Menu Items */}
+        <View style={styles.menuList}>
+          {menuItems.map((item) => (
+            <View key={item.id}>{renderMenuItem({ item })}</View>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 30,
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -293,6 +300,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   categoryTabs: {
+    flexDirection: 'row',
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
